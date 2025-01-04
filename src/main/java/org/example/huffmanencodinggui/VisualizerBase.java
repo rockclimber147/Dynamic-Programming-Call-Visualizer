@@ -1,6 +1,7 @@
 package org.example.huffmanencodinggui;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -8,11 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public abstract class VisualizerBase extends Application {
-    protected final int APP_WIDTH = 750;
-    protected final int APP_HEIGHT = 600;
+    protected static final int APP_WIDTH;
+    protected static final int APP_HEIGHT;
+
+    static {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        APP_WIDTH = (int) screenBounds.getWidth();
+        APP_HEIGHT = (int) screenBounds.getHeight();
+    }
     protected Stage stage;
     protected Group nodeGroup;
     protected Group nodeLines;
@@ -46,6 +54,7 @@ public abstract class VisualizerBase extends Application {
         scene.setOnMouseDragged(this::onMouseDragged);
 
         stage.setScene(scene);
+        stage.setMaximized(true);
     }
 
     protected void clearTree() {
@@ -62,36 +71,38 @@ public abstract class VisualizerBase extends Application {
     }
 
     private void onScroll(ScrollEvent event) {
-        double zoomFactor = 1.05;
+        double delta = 1.2;
+
+        double scaleX = nodeGroup.getScaleX();
+        double scaleY = nodeGroup.getScaleY();
+        double oldScaleX = scaleX;
+        double oldScaleY = scaleY;
+
         if (event.getDeltaY() < 0) {
-            zoomFactor = 0.95;
+            scaleX /= delta;
+            scaleY /= delta;
+        } else {
+            scaleX *= delta;
+            scaleY *= delta;
         }
 
-        // Cursor position in scene coordinates
-        double cursorSceneX = event.getSceneX();
-        double cursorSceneY = event.getSceneY();
+        double fx = (scaleX / oldScaleX) - 1;
+        double fy = (scaleY / oldScaleY) - 1;
 
-        // Current scale and translation of nodeGroup
-        double currentScaleX = nodeGroup.getScaleX();
-        double currentScaleY = nodeGroup.getScaleY();
-        double translateX = nodeGroup.getTranslateX();
-        double translateY = nodeGroup.getTranslateY();
+        double dx = (event.getSceneX() - (nodeGroup.getBoundsInParent().getWidth()/2 + nodeGroup.getBoundsInParent().getMinX()));
+        double dy = (event.getSceneY() - (nodeGroup.getBoundsInParent().getHeight()/2 + nodeGroup.getBoundsInParent().getMinY()));
 
-        // Calculate cursor position in nodeGroup's coordinate space
-        double cursorOffsetX = (cursorSceneX - translateX) / currentScaleX;
-        double cursorOffsetY = (cursorSceneY - translateY) / currentScaleY;
+        nodeGroup.setScaleX(scaleX);
+        nodeGroup.setScaleY(scaleY);
 
-        // Apply new scale
-        double newScaleX = currentScaleX * zoomFactor;
-        double newScaleY = currentScaleY * zoomFactor;
-        nodeGroup.setScaleX(newScaleX);
-        nodeGroup.setScaleY(newScaleY);
+        setPivot(nodeGroup,fx*dx, fy*dy);
 
-        // Adjust translation to keep cursor stationary
-        double newTranslateX = cursorSceneX - cursorOffsetX * newScaleX;
-        double newTranslateY = cursorSceneY - cursorOffsetY * newScaleY;
-        nodeGroup.setTranslateX(translateX + (newTranslateX - translateX) * zoomFactor);
-        nodeGroup.setTranslateY(translateY + (newTranslateY - translateY) * zoomFactor);
+        event.consume();
+    }
+
+    private void setPivot(Group group, double x, double y) {
+        group.setTranslateX(group.getTranslateX() - x);
+        group.setTranslateY(group.getTranslateY() - y);
     }
 
     private void onMouseDragged(MouseEvent event) {

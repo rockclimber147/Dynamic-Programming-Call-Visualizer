@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TreeVisualizer extends VisualizerBase{
-    private final int APP_WIDTH = 750;
     private final int NODE_LAYER_OFFSET = 50;
     private TextField argsField;
     ComboBox<String> generatorComboBox;
@@ -38,7 +37,7 @@ public class TreeVisualizer extends VisualizerBase{
         btn.setText("Generate");
         btn.setMinWidth(100);
 
-        this.argsField.setMinWidth(APP_WIDTH - btn.getMinWidth());
+        this.argsField.setMinWidth( (double) APP_WIDTH / 2);
         this.displayBox.getChildren().addAll(argsField, generatorComboBox, btn);
         this.displayBox.setSpacing(0);
         stage.setTitle("Dynamic Programming!");

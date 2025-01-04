@@ -23,7 +23,7 @@ public abstract class TreeGenerator<T> {
     public abstract String getKey();
     public  Node<T> call(String args) {
         try {
-            parseArgs(args);
+            parseArgs(args.replaceAll("\\s+", ""));
         } catch (Exception e) {
             throw new IllegalArgumentException(this.getErrorMessage());
         }
