@@ -3,29 +3,33 @@ package org.example.huffmanencodinggui.model.generators.fibonacci;
 import java.util.HashMap;
 
 public class FibonacciGeneratorMemo extends FibonacciGenerator {
-    private HashMap<Integer, Integer> memo;
+    private HashMap<Integer, FibonacciDisplay> memo;
 
     @Override
-    public int fibonacci(int num) {
+    public FibonacciDisplay fibonacci(int num) {
         this.memo = new HashMap<>();
         return fibonacciMemo(num);
     }
 
-    private int fibonacciMemo(int num) {
+    private FibonacciDisplay fibonacciMemo(int num) {
         this.caller.callFunction();
+        FibonacciDisplay display = new FibonacciDisplay();
 
         if (this.memo.containsKey(num)) {
             return caller.returnValue(memo.get(num));
         }
 
         if (num <= 2) {
-            return caller.returnValue(1);
+            display.setValue(1);
+            memo.put(num, display);
+            return caller.returnValue(display);
         }
 
-        int value = fibonacciMemo(num - 1) + fibonacciMemo(num - 2);
-        memo.put(num, value);
+        int value = fibonacciMemo(num - 1).getValue() + fibonacciMemo(num - 2).getValue();
+        display.setValue(value);
+        memo.put(num, display);
 
-        return caller.returnValue(value);
+        return caller.returnValue(display);
     }
 
     @Override

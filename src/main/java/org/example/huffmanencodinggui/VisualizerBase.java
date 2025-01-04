@@ -11,6 +11,9 @@ import javafx.scene.layout.Pane;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.example.huffmanencodinggui.model.generators.Layer;
+
+import java.util.HashMap;
 
 public abstract class VisualizerBase extends Application {
     protected static final int APP_WIDTH;
@@ -23,9 +26,8 @@ public abstract class VisualizerBase extends Application {
     }
     protected Stage stage;
     protected Group nodeGroup;
-    protected Group nodeLines;
-    protected Group nodeText;
-    protected Group nodeBackground;
+
+    protected HashMap<Layer, Group> layers;
 
     protected double prevMouseX;
     protected double prevMouseY;
@@ -36,11 +38,11 @@ public abstract class VisualizerBase extends Application {
 
 
     protected void initScene(Stage stage) {
+        this.layers = new HashMap<>();
         this.stage = stage;
         this.nodeGroup = new Group();
-        this.nodeLines = new Group();
-        this.nodeText = new Group();
-        this.nodeBackground = new Group();
+
+        initLayers();
 
         this.drawField = new Pane();
         this.displayBox = new HBox();
@@ -57,17 +59,27 @@ public abstract class VisualizerBase extends Application {
         stage.setMaximized(true);
     }
 
+    private void initLayers() {
+        for (Layer layer: Layer.values()) {
+            this.layers.put(layer, new Group());
+        }
+    }
+
+    protected Group getLayer(Layer layer) {
+        return this.layers.get(layer);
+    }
+
     protected void clearTree() {
+        for (Group entry: layers.values()) {
+            entry.getChildren().clear();
+        }
         nodeGroup.getChildren().clear();
-        nodeLines.getChildren().clear();
-        nodeBackground.getChildren().clear();
-        nodeText.getChildren().clear();
     }
 
     protected void drawTree() {
-        nodeGroup.getChildren().addAll(nodeLines.getChildren());
-        nodeGroup.getChildren().addAll(nodeBackground.getChildren());
-        nodeGroup.getChildren().addAll(nodeText.getChildren());
+        for (Layer layer: Layer.values()) {
+            nodeGroup.getChildren().addAll(getLayer(layer));
+        }
     }
 
     private void onScroll(ScrollEvent event) {

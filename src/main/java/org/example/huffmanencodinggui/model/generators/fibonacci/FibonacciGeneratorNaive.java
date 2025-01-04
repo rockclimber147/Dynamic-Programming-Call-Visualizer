@@ -2,13 +2,18 @@ package org.example.huffmanencodinggui.model.generators.fibonacci;
 
 public class FibonacciGeneratorNaive extends FibonacciGenerator {
     @Override
-    public int fibonacci(int num) {
+    public FibonacciDisplay fibonacci(int num) {
         caller.callFunction();
+        FibonacciDisplay display = new FibonacciDisplay();
+
         if (num <= 2) {
-            return caller.returnValue(1);
+            display.setValue(1);
+            return caller.returnValue(display);
         }
 
-        return caller.returnValue(fibonacci(num - 1) + fibonacci(num - 2));
+        int value = fibonacci(num - 1).getValue() + fibonacci(num - 2).getValue();
+        display.setValue(value);
+        return caller.returnValue(display);
     }
 
     @Override

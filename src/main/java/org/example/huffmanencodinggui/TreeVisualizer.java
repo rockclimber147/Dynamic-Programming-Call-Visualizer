@@ -7,13 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.example.huffmanencodinggui.model.generators.Layer;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
+import org.example.huffmanencodinggui.model.generators.Displayable;
 import org.example.huffmanencodinggui.model.visualTree.Node;
 import org.example.huffmanencodinggui.model.visualTree.TreeHelper;
 
@@ -76,28 +74,18 @@ public class TreeVisualizer extends VisualizerBase{
         });
     }
 
-    private  <T> void loadTree(Node<T> root) {
+    private  <T extends Displayable> void loadTree(Node<T> root) {
         int rootX = APP_WIDTH / 2;
         loadTreeRecursive(root, rootX, NODE_LAYER_OFFSET, rootX, NODE_LAYER_OFFSET);
     }
 
-    private <T> void loadNode(Node<T> node, int xPosition, int yPosition) {
-        Text nodeText = new Text(xPosition, yPosition, node.getContentString());
-        String NODE_TEXT_STYLE = "-fx-font-weight: bold";
-        nodeText.setStyle(NODE_TEXT_STYLE);
-        nodeText.setTextAlignment(TextAlignment.CENTER);
-        nodeText.setTranslateX(nodeText.getTranslateX() - (nodeText.getLayoutBounds().getWidth() / 2));
-        nodeText.setTranslateY(nodeText.getTranslateY() + (nodeText.getLayoutBounds().getHeight() / 4));
-
-        Circle circle = new Circle(xPosition, yPosition, nodeText.getLayoutBounds().getWidth(), Paint.valueOf("lightgrey"));
-
-
-        this.nodeBackground.getChildren().add(circle);
-        this.nodeText.getChildren().add(nodeText);
+    private <T extends Displayable> void loadNode(Node<T> node, int xPosition, int yPosition) {
+        T displayable = node.getContent();
+        displayable.display(layers, xPosition, yPosition, node.getContentString());
     }
 
-    private <T> void loadTreeRecursive(Node <T> node, int parentX, int parentY, int nodeX, int nodeY) {
-        this.nodeLines.getChildren().add(new Line(parentX, parentY, nodeX, nodeY));
+    private <T extends Displayable> void loadTreeRecursive(Node<T> node, int parentX, int parentY, int nodeX, int nodeY) {
+        getLayer(Layer.LINES_LAYER).getChildren().add(new Line(parentX, parentY, nodeX, nodeY));
         loadNode(node, nodeX, nodeY);
 
         int leftBound = nodeX - TreeHelper.getWidth(node)/2;

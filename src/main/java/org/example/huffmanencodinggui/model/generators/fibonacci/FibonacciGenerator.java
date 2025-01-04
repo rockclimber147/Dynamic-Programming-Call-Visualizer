@@ -2,7 +2,7 @@ package org.example.huffmanencodinggui.model.generators.fibonacci;
 
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
 
-public abstract class FibonacciGenerator extends TreeGenerator<Integer> {
+public abstract class FibonacciGenerator extends TreeGenerator<FibonacciDisplay> {
     private int argument;
 
     @Override
@@ -20,5 +20,5 @@ public abstract class FibonacciGenerator extends TreeGenerator<Integer> {
         fibonacci(argument);
     }
 
-    public abstract int fibonacci(int num);
+    public abstract FibonacciDisplay fibonacci(int num);
 }

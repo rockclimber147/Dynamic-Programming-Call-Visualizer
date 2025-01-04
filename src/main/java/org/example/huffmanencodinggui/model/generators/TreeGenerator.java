@@ -13,7 +13,7 @@ import org.example.huffmanencodinggui.model.visualTree.Node;
 
 import java.util.HashMap;
 
-public abstract class TreeGenerator<T> {
+public abstract class TreeGenerator<T extends Displayable> {
     private static final HashMap<String, TreeGenerator<?>> generators = new HashMap<>();
     public TreeGenerator(){
         this.caller = new FunctionCaller<>();
