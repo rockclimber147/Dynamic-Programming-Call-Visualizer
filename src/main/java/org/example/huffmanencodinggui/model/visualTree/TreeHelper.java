@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.visualTree;
+package org.example.huffmanencodinggui.model.visualTree;
 
 public class TreeHelper {
     private static final int CHARACTER_PIXEL_WIDTH = 10;

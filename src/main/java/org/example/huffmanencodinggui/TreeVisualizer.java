@@ -14,8 +14,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
-import org.example.huffmanencodinggui.visualTree.Node;
-import org.example.huffmanencodinggui.visualTree.TreeHelper;
+import org.example.huffmanencodinggui.model.visualTree.Node;
+import org.example.huffmanencodinggui.model.visualTree.TreeHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.visualTree;
+package org.example.huffmanencodinggui.model.visualTree;
 
 import java.util.ArrayList;
 

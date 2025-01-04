@@ -1,6 +1,6 @@
 package org.example.huffmanencodinggui.model;
 
-import org.example.huffmanencodinggui.visualTree.Node;
+import org.example.huffmanencodinggui.model.visualTree.Node;
 
 import java.util.Stack;
 

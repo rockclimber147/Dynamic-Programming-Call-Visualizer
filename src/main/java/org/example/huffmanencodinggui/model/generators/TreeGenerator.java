@@ -6,7 +6,7 @@ import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGenera
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoRegular;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoSmarter;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsNaive;
-import org.example.huffmanencodinggui.visualTree.Node;
+import org.example.huffmanencodinggui.model.visualTree.Node;
 
 import java.util.HashMap;
 
