@@ -1,18 +1,19 @@
-package org.example.huffmanencodinggui.model.generators.canSum;
+package org.example.huffmanencodinggui.model.generators.sum.canSum;
+
+import org.example.huffmanencodinggui.model.generators.sum.SumDisplayBasic;
 
 import java.util.List;
 
-public class CanSumNaive extends CanSum {
+public class CanSumNaive extends CanSum<SumDisplayBasic> {
     @Override
     public String getKey() {
         return "Can Sum Naive";
     }
 
-    @Override
-    protected CanSumDisplay canSum(int sum, int selectedNumber) {
+    protected SumDisplayBasic canSum(int sum, int selectedNumber) {
         this.caller.callFunction();
         int newSum = sum - selectedNumber;
-        CanSumDisplay display = new CanSumDisplay(newSum, selectedNumber);
+        SumDisplayBasic display = new SumDisplayBasic(newSum, selectedNumber);
 
         if (newSum < 0) {
             display.setFound(false);
@@ -25,5 +26,10 @@ public class CanSumNaive extends CanSum {
         }
 
         return caller.returnValue(display);
+    }
+
+    @Override
+    protected void canSum(int sum) {
+        canSum(sum, 0);
     }
 }

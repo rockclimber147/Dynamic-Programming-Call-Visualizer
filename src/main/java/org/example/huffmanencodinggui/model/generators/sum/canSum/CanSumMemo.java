@@ -1,20 +1,22 @@
-package org.example.huffmanencodinggui.model.generators.canSum;
+package org.example.huffmanencodinggui.model.generators.sum.canSum;
+
+import org.example.huffmanencodinggui.model.generators.sum.SumDisplayBasic;
 
 import java.util.HashMap;
 
-public abstract class CanSumMemo extends CanSum {
+public abstract class CanSumMemo extends CanSum<SumDisplayBasic> {
     private HashMap<Integer, Boolean> memo;
 
     @Override
-    protected CanSumDisplay canSum(int sum, int selectedNumber) {
+    protected void canSum(int sum) {
         this.memo = new HashMap<>();
-        return canSumMemo(sum, selectedNumber);
+        canSumMemo(sum, 0);
     }
 
-    protected CanSumDisplay canSumMemo(int sum, int selectedNumber) {
+    protected SumDisplayBasic canSumMemo(int sum, int selectedNumber) {
         this.caller.callFunction();
         int newSum = sum - selectedNumber;
-        CanSumDisplay display = new CanSumDisplay(newSum, selectedNumber);
+        SumDisplayBasic display = new SumDisplayBasic(newSum, selectedNumber);
 
         if (this.memo.containsKey(newSum)) {
             display.setFound(this.memo.get(newSum));

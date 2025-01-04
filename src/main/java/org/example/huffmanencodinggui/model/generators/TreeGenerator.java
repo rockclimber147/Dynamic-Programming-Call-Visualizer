@@ -1,14 +1,15 @@
 package org.example.huffmanencodinggui.model.generators;
 
 import org.example.huffmanencodinggui.model.FunctionCaller;
-import org.example.huffmanencodinggui.model.generators.canSum.CanSumMemoLessWork;
-import org.example.huffmanencodinggui.model.generators.canSum.CanSumMemoMoreWork;
-import org.example.huffmanencodinggui.model.generators.canSum.CanSumNaive;
+import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumMemoLessWork;
+import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumMemoMoreWork;
+import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumNaive;
 import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorMemo;
 import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorNaive;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoRegular;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoSmarter;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsNaive;
+import org.example.huffmanencodinggui.model.generators.sum.howSum.HowSumNaive;
 import org.example.huffmanencodinggui.model.visualTree.Node;
 
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public abstract class TreeGenerator<T extends Displayable> {
         add(new CanSumNaive());
         add(new CanSumMemoMoreWork());
         add(new CanSumMemoLessWork());
+        add(new HowSumNaive());
         return generators;
     }
 

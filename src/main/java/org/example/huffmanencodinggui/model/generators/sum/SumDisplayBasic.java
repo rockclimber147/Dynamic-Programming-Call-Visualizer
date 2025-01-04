@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.model.generators.canSum;
+package org.example.huffmanencodinggui.model.generators.sum;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
@@ -9,12 +9,12 @@ import org.example.huffmanencodinggui.model.generators.Layer;
 
 import java.util.HashMap;
 
-public class CanSumDisplay implements Displayable {
-    private final int sum;
-    private final int value;
-    private boolean found;
+public class SumDisplayBasic implements Displayable {
+    protected final int sum;
+    protected final int value;
+    protected boolean found;
 
-    public CanSumDisplay(int sum, int value) {
+    public SumDisplayBasic(int sum, int value) {
         this.sum = sum;
         this.value = value;
         this.found = false;
@@ -34,15 +34,19 @@ public class CanSumDisplay implements Displayable {
         Text nodeText = new Text(xPosition, yPosition, content);
         formatText(nodeText);
 
+        Circle circle = new Circle(xPosition, yPosition, nodeText.getLayoutBounds().getWidth(), Paint.valueOf(getColor()));
+        centerShapeOnText(circle, nodeText);
+        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
+        layers.get(Layer.CONTENT_LAYER).getChildren().add(nodeText);
+    }
+
+    protected String getColor() {
         String color;
         if (found) {
             color = "green";
         } else {
             color = "lightgrey";
         }
-
-        Circle circle = new Circle(xPosition, yPosition, nodeText.getLayoutBounds().getWidth(), Paint.valueOf(color));
-        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
-        layers.get(Layer.CONTENT_LAYER).getChildren().add(nodeText);
+        return color;
     }
 }

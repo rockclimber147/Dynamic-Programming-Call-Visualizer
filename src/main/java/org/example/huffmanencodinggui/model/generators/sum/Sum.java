@@ -1,10 +1,11 @@
-package org.example.huffmanencodinggui.model.generators.canSum;
+package org.example.huffmanencodinggui.model.generators.sum;
 
+import org.example.huffmanencodinggui.model.generators.Displayable;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
 
 import java.util.ArrayList;
 
-public abstract class CanSum extends TreeGenerator<CanSumDisplay> {
+public abstract class Sum<T extends Displayable> extends TreeGenerator<T> {
     protected int targetSum;
     protected ArrayList<Integer> numbers;
     @Override
@@ -28,11 +29,4 @@ public abstract class CanSum extends TreeGenerator<CanSumDisplay> {
             numbers.add(Integer.parseInt(number));
         }
     }
-
-    @Override
-    public void doWork() {
-        canSum(targetSum, 0);
-    }
-
-    protected abstract CanSumDisplay canSum(int sum, int selectedNumber);
 }

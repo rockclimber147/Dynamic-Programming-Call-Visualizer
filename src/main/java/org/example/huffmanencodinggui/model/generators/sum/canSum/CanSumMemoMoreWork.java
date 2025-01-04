@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.model.generators.canSum;
+package org.example.huffmanencodinggui.model.generators.sum.canSum;
 
 public class CanSumMemoMoreWork extends CanSumMemo {
     @Override
