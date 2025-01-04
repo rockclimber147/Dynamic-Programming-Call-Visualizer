@@ -3,7 +3,7 @@ package org.example.huffmanencodinggui.model.generators.latticePaths;
 public class LatticePathsDisplay {
     private final int rows;
     private final int cols;
-    private int paths;
+    private long paths;
 
     public LatticePathsDisplay(int rows, int cols) {
         this.rows = rows;
@@ -11,10 +11,10 @@ public class LatticePathsDisplay {
         this.paths = -1;
     }
 
-    public void setPaths(int paths) {
+    public void setPaths(long paths) {
         this.paths = paths;
     }
-    public int getPaths() { return this.paths;}
+    public long getPaths() { return this.paths;}
 
     public String toString(){
         return paths + "\n" + rows + "," + cols;

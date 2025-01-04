@@ -31,7 +31,7 @@ public abstract class LatticePathsMemo extends LatticePaths {
             return caller.returnValue(display);
         }
 
-        int value = latticePathsMemo(rows - 1, cols).getPaths() + latticePathsMemo(rows, cols - 1).getPaths();
+        long value = latticePathsMemo(rows - 1, cols).getPaths() + latticePathsMemo(rows, cols - 1).getPaths();
         display.setPaths(value);
         memo.put(key, display);
         return caller.returnValue(display);
