@@ -1,6 +1,9 @@
 package org.example.huffmanencodinggui.model.generators;
 
 import org.example.huffmanencodinggui.model.FunctionCaller;
+import org.example.huffmanencodinggui.model.generators.canSum.CanSumMemoLessWork;
+import org.example.huffmanencodinggui.model.generators.canSum.CanSumMemoMoreWork;
+import org.example.huffmanencodinggui.model.generators.canSum.CanSumNaive;
 import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorMemo;
 import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorNaive;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoRegular;
@@ -37,6 +40,9 @@ public abstract class TreeGenerator<T> {
         add(new LatticePathsNaive());
         add(new LatticePathsMemoRegular());
         add(new LatticePathsMemoSmarter());
+        add(new CanSumNaive());
+        add(new CanSumMemoMoreWork());
+        add(new CanSumMemoLessWork());
         return generators;
     }
 
