@@ -1,9 +1,17 @@
 package org.example.huffmanencodinggui.model.generators;
 
 import org.example.huffmanencodinggui.model.FunctionCaller;
+import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorMemo;
+import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorNaive;
+import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoRegular;
+import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoSmarter;
+import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsNaive;
 import org.example.huffmanencodinggui.visualTree.Node;
 
+import java.util.HashMap;
+
 public abstract class TreeGenerator<T> {
+    private static final HashMap<String, TreeGenerator<?>> generators = new HashMap<>();
     public TreeGenerator(){
         this.caller = new FunctionCaller<>();
     }
@@ -21,6 +29,19 @@ public abstract class TreeGenerator<T> {
         }
         doWork();
         return this.caller.getLastFunctionCall();
+    }
+
+    public static HashMap<String, TreeGenerator<?>> getGenerators() {
+        add(new FibonacciGeneratorNaive());
+        add(new FibonacciGeneratorMemo());
+        add(new LatticePathsNaive());
+        add(new LatticePathsMemoRegular());
+        add(new LatticePathsMemoSmarter());
+        return generators;
+    }
+
+    private static void add(TreeGenerator<?> generator) {
+        generators.put(generator.getKey(), generator);
     }
 
 }

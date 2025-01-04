@@ -14,8 +14,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
-import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorMemo;
-import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGeneratorNaive;
 import org.example.huffmanencodinggui.visualTree.Node;
 import org.example.huffmanencodinggui.visualTree.TreeHelper;
 
@@ -51,9 +49,7 @@ public class TreeVisualizer extends VisualizerBase{
     }
 
     private void initGeneratorMap() {
-        this.generators = new HashMap<>();
-        add(new FibonacciGeneratorMemo());
-        add(new FibonacciGeneratorNaive());
+        this.generators = TreeGenerator.getGenerators();
 
         ObservableList<String> keys = FXCollections.observableArrayList(this.generators.keySet());
         generatorComboBox = new ComboBox<>(keys);
@@ -62,10 +58,6 @@ public class TreeVisualizer extends VisualizerBase{
             String selectedKey = generatorComboBox.getValue();
             this.currentGenerator = this.generators.get(selectedKey);
         });
-    }
-
-    private void add(TreeGenerator<?> generator) {
-        generators.put(generator.getKey(), generator);
     }
 
     private void onButtonPress(ActionEvent event) {
