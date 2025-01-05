@@ -1,6 +1,6 @@
 package org.example.huffmanencodinggui.model.generators.latticePaths;
 
-import org.example.huffmanencodinggui.model.generators.Displayable;
+import org.example.huffmanencodinggui.model.generators.displays.Displayable;
 
 public class LatticePathsDisplay implements Displayable {
     private final int rows;

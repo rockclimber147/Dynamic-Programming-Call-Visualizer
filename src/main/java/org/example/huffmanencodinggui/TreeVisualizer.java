@@ -9,9 +9,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import org.example.huffmanencodinggui.model.generators.Layer;
+import org.example.huffmanencodinggui.model.generators.displays.Layer;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
-import org.example.huffmanencodinggui.model.generators.Displayable;
+import org.example.huffmanencodinggui.model.generators.displays.Displayable;
 import org.example.huffmanencodinggui.model.visualTree.Node;
 import org.example.huffmanencodinggui.model.visualTree.TreeHelper;
 

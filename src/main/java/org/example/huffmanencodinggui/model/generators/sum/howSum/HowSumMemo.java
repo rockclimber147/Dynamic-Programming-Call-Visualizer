@@ -1,9 +1,11 @@
 package org.example.huffmanencodinggui.model.generators.sum.howSum;
 
+import org.example.huffmanencodinggui.model.generators.sum.SumDisplayWithNumbersUsed;
+
 import java.util.HashMap;
 
 public class HowSumMemo extends HowSum {
-    HashMap<Integer, HowSumDisplay> memo;
+    HashMap<Integer, SumDisplayWithNumbersUsed> memo;
     @Override
     public String getKey() {
         return "How Sum Memo";
@@ -15,13 +17,13 @@ public class HowSumMemo extends HowSum {
         howSumMemo(sum, 0);
     }
 
-    public HowSumDisplay howSumMemo(int sum, int selected) {
+    public SumDisplayWithNumbersUsed howSumMemo(int sum, int selected) {
         this.caller.callFunction();
         int newSum = sum - selected;
-        HowSumDisplay display = new HowSumDisplay(newSum, selected);
+        SumDisplayWithNumbersUsed display = new SumDisplayWithNumbersUsed(newSum, selected);
 
         if (memo.containsKey(newSum)) {
-            HowSumDisplay memoDisplay = memo.get(newSum);
+            SumDisplayWithNumbersUsed memoDisplay = memo.get(newSum);
             display.add(memoDisplay.getNumbersUsed());
             display.setFound(memoDisplay.getFound());
         } else if (newSum < 0) {
@@ -33,7 +35,7 @@ public class HowSumMemo extends HowSum {
         } else {
             display.setFound(false);
             for(int number : this.numbers) {
-                HowSumDisplay checkedDisplay = howSumMemo(newSum, number);
+                SumDisplayWithNumbersUsed checkedDisplay = howSumMemo(newSum, number);
                 if (checkedDisplay.getFound()) {
                     display.setFound(true);
                     display.add(checkedDisplay.getNumbersUsed());

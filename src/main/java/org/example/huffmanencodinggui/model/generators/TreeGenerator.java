@@ -1,6 +1,9 @@
 package org.example.huffmanencodinggui.model.generators;
 
 import org.example.huffmanencodinggui.model.FunctionCaller;
+import org.example.huffmanencodinggui.model.generators.construct.ConstructNaive;
+import org.example.huffmanencodinggui.model.generators.displays.Displayable;
+import org.example.huffmanencodinggui.model.generators.sum.bestSum.BestSumNaive;
 import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumMemoLessWork;
 import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumMemoMoreWork;
 import org.example.huffmanencodinggui.model.generators.sum.canSum.CanSumNaive;
@@ -49,6 +52,8 @@ public abstract class TreeGenerator<T extends Displayable> {
         add(new CanSumMemoLessWork());
         add(new HowSumNaive());
         add(new HowSumMemo());
+        add(new BestSumNaive());
+        add(new ConstructNaive());
         return generators;
     }
 

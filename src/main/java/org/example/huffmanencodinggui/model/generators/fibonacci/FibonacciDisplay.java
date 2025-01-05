@@ -1,6 +1,6 @@
 package org.example.huffmanencodinggui.model.generators.fibonacci;
 
-import org.example.huffmanencodinggui.model.generators.Displayable;
+import org.example.huffmanencodinggui.model.generators.displays.Displayable;
 
 public class FibonacciDisplay implements Displayable {
     private int value;

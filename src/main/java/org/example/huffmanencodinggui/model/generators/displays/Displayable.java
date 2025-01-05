@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.model.generators;
+package org.example.huffmanencodinggui.model.generators.displays;
 
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -12,6 +12,9 @@ import java.util.HashMap;
 
 public interface Displayable {
     int RECTANGLE_BORDER_PADDING = 10;
+    String LIGHT_GREY = "lightgrey";
+    String LIGHT_GREEN = "lightgreen";
+    String GREEN = "green";
     default void display(HashMap<Layer, Group> layers, int xPosition, int yPosition, String content) {
         Text nodeText = new Text(xPosition, yPosition, content);
         formatText(nodeText);

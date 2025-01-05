@@ -1,4 +1,4 @@
-package org.example.huffmanencodinggui.model.generators;
+package org.example.huffmanencodinggui.model.generators.displays;
 
 public enum Layer {
     LINES_LAYER,

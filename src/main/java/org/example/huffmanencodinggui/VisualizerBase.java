@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.example.huffmanencodinggui.model.generators.Layer;
+import org.example.huffmanencodinggui.model.generators.displays.Layer;
 
 import java.util.HashMap;
 

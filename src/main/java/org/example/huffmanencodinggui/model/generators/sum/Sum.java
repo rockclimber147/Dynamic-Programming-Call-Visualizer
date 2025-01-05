@@ -1,6 +1,6 @@
 package org.example.huffmanencodinggui.model.generators.sum;
 
-import org.example.huffmanencodinggui.model.generators.Displayable;
+import org.example.huffmanencodinggui.model.generators.displays.Displayable;
 import org.example.huffmanencodinggui.model.generators.TreeGenerator;
 
 import java.util.ArrayList;
