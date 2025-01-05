@@ -9,6 +9,7 @@ import org.example.huffmanencodinggui.model.generators.fibonacci.FibonacciGenera
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoRegular;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsMemoSmarter;
 import org.example.huffmanencodinggui.model.generators.latticePaths.LatticePathsNaive;
+import org.example.huffmanencodinggui.model.generators.sum.howSum.HowSumMemo;
 import org.example.huffmanencodinggui.model.generators.sum.howSum.HowSumNaive;
 import org.example.huffmanencodinggui.model.visualTree.Node;
 
@@ -45,6 +46,7 @@ public abstract class TreeGenerator<T extends Displayable> {
         add(new CanSumMemoMoreWork());
         add(new CanSumMemoLessWork());
         add(new HowSumNaive());
+        add(new HowSumMemo());
         return generators;
     }
 
