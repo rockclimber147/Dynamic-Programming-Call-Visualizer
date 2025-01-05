@@ -15,7 +15,7 @@ public interface Displayable {
     default void display(HashMap<Layer, Group> layers, int xPosition, int yPosition, String content) {
         Text nodeText = new Text(xPosition, yPosition, content);
         formatText(nodeText);
-        centerTextOnPoint(nodeText, xPosition, yPosition);
+        centerTextOnPoint(nodeText);
         layers.get(Layer.CONTENT_LAYER).getChildren().add(nodeText);
 
         Circle circle = makeCircleBackground(nodeText, "lightGrey");
