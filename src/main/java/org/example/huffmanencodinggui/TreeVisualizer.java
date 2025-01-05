@@ -16,6 +16,7 @@ import org.example.huffmanencodinggui.model.visualTree.Node;
 import org.example.huffmanencodinggui.model.visualTree.TreeHelper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class TreeVisualizer extends VisualizerBase{
@@ -49,6 +50,11 @@ public class TreeVisualizer extends VisualizerBase{
         this.generators = TreeGenerator.getGenerators();
 
         ObservableList<String> keys = FXCollections.observableArrayList(this.generators.keySet());
+        keys = FXCollections.observableArrayList(
+                keys.stream()
+                        .sorted(Comparator.naturalOrder()) // For alphabetical order
+                        .toList()
+        );
         generatorComboBox = new ComboBox<>(keys);
         generatorComboBox.setPromptText("Select an option");
         generatorComboBox.setOnAction(event -> {
