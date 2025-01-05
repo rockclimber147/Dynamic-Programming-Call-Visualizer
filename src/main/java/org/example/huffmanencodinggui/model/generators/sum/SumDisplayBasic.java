@@ -1,7 +1,6 @@
 package org.example.huffmanencodinggui.model.generators.sum;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import org.example.huffmanencodinggui.model.generators.Displayable;
@@ -33,11 +32,11 @@ public class SumDisplayBasic implements Displayable {
     public void display(HashMap<Layer, Group> layers, int xPosition, int yPosition, String content) {
         Text nodeText = new Text(xPosition, yPosition, content);
         formatText(nodeText);
-
-        Circle circle = new Circle(xPosition, yPosition, nodeText.getLayoutBounds().getWidth(), Paint.valueOf(getColor()));
-        centerShapeOnText(circle, nodeText);
-        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
+        centerTextOnPoint(nodeText);
         layers.get(Layer.CONTENT_LAYER).getChildren().add(nodeText);
+
+        Circle circle = makeCircleBackground(nodeText, getColor());
+        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
     }
 
     protected String getColor() {

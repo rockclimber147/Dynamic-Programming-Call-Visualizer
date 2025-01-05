@@ -4,42 +4,61 @@ import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.util.HashMap;
 
 public interface Displayable {
+    int RECTANGLE_BORDER_PADDING = 10;
     default void display(HashMap<Layer, Group> layers, int xPosition, int yPosition, String content) {
         Text nodeText = new Text(xPosition, yPosition, content);
         formatText(nodeText);
-
-        Circle circle = new Circle(xPosition, yPosition, nodeText.getLayoutBounds().getWidth(), Paint.valueOf("lightgrey"));
-        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
+        centerTextOnPoint(nodeText, xPosition, yPosition);
         layers.get(Layer.CONTENT_LAYER).getChildren().add(nodeText);
+
+        Circle circle = makeCircleBackground(nodeText, "lightGrey");
+        layers.get(Layer.NODE_LAYER).getChildren().add(circle);
     }
 
     default void formatText(Text nodeText) {
         String NODE_TEXT_STYLE = "-fx-font-weight: bold";
         nodeText.setStyle(NODE_TEXT_STYLE);
-        nodeText.setTextOrigin(VPos.CENTER);
         nodeText.setTextAlignment(TextAlignment.CENTER);
-        nodeText.setTranslateX(nodeText.getTranslateX() - (nodeText.getLayoutBounds().getWidth() / 2));
-        nodeText.setTranslateY(nodeText.getTranslateY() + (nodeText.getLayoutBounds().getHeight() / 4));
     }
 
-    default void centerShapeOnText(Shape shape, Text text) {
-        // Get the bounds of the text
-        double textCenterX = text.getLayoutX() + text.getBoundsInParent().getWidth() / 2;
-        double textCenterY = text.getLayoutY() + text.getBoundsInParent().getHeight() / 2;
+    default Circle makeCircleBackground(Text text, String color) {
+        double x = text.getX();
+        double y = text.getY();
+        double textWidth = Math.max(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight());
+        return new Circle(x,y,textWidth, Paint.valueOf(color));
+    }
 
-        // Get the bounds of the shape
-        double shapeWidth = shape.getBoundsInParent().getWidth();
-        double shapeHeight = shape.getBoundsInParent().getHeight();
+    default Rectangle makeRectangleBackground(Text text, String color) {
+        double x = text.getX();
+        double y = text.getY();
+        double textWidth = text.getLayoutBounds().getWidth() + RECTANGLE_BORDER_PADDING;
+        double textHeight = text.getLayoutBounds().getHeight() + RECTANGLE_BORDER_PADDING;
+        Rectangle rect = new Rectangle(
+                x - (textWidth) / 2,
+                y - (textHeight + RECTANGLE_BORDER_PADDING) / 2,
+                textWidth,
+                textHeight
+        );
+        rect.setFill(Paint.valueOf(color));
+        return rect;
+    }
 
-        // Center the shape on the text
-        shape.setLayoutX(textCenterX - shapeWidth / 2);
-        shape.setLayoutY(textCenterY - shapeHeight / 2);
+    default void centerTextOnPoint(Text text) {
+        // Ensure the text origin is set to CENTER
+        text.setTextOrigin(VPos.CENTER);
+
+        // Calculate the bounds of the text
+        double textWidth = text.getBoundsInLocal().getWidth();
+        double textHeight = text.getBoundsInLocal().getHeight();
+
+        text.setTranslateX(text.getTranslateX() - textWidth / 2);
+        text.setTranslateY(text.getTranslateY() - textHeight / 4);
     }
 }

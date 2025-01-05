@@ -1,7 +1,7 @@
 package org.example.huffmanencodinggui.model.visualTree;
 
 public class TreeHelper {
-    private static final int CHARACTER_PIXEL_WIDTH = 10;
+    private static final int CHARACTER_PIXEL_WIDTH = 20;
     public static <T> int getWidth(Node<T> node) {
         if (node == null) return 0;
 
