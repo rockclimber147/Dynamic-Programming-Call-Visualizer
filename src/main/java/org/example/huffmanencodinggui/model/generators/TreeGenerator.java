@@ -22,6 +22,8 @@ public abstract class TreeGenerator<T extends Displayable> {
     }
     protected FunctionCaller<T> caller;
 
+    public abstract String getExampleArgs();
+
     public abstract String getErrorMessage();
     public abstract void parseArgs(String args);
     public abstract void doWork();

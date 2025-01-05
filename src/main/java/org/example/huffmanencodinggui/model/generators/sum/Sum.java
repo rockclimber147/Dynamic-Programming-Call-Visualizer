@@ -14,6 +14,11 @@ public abstract class Sum<T extends Displayable> extends TreeGenerator<T> {
     }
 
     @Override
+    public String getExampleArgs() {
+        return "15,[4,7,1]";
+    }
+
+    @Override
     public void parseArgs(String args) {
         int firstCommaIndex = args.indexOf(',');
         int leftSquareBracketIndex = args.indexOf('[');

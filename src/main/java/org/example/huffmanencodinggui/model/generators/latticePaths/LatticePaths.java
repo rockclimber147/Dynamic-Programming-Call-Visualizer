@@ -11,6 +11,11 @@ public abstract class LatticePaths extends TreeGenerator<LatticePathsDisplay> {
     }
 
     @Override
+    public String getExampleArgs() {
+        return "4,7";
+    }
+
+    @Override
     public void parseArgs(String args) {
         String[] argList = args.split(",");
         this.rows = Integer.parseInt(argList[0]);

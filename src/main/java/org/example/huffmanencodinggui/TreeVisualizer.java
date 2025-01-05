@@ -20,7 +20,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class TreeVisualizer extends VisualizerBase{
-    private final int NODE_LAYER_OFFSET = 50;
+    private static int nodeLayerOffset = 50;
     private TextField argsField;
     ComboBox<String> generatorComboBox;
 
@@ -35,34 +35,20 @@ public class TreeVisualizer extends VisualizerBase{
         Button btn = new Button();
         btn.setText("Generate");
         btn.setMinWidth(100);
+        btn.setOnAction(this::onButtonPress);
+
+        Button clearButton = new Button();
+        clearButton.setText("Clear");
+        clearButton.setMinWidth(100);
+        clearButton.setOnAction(this::onClearButtonPress);
 
         this.argsField.setMinWidth( (double) APP_WIDTH / 2);
-        this.displayBox.getChildren().addAll(argsField, generatorComboBox, btn);
+        this.displayBox.getChildren().addAll(argsField, generatorComboBox, btn, clearButton);
         this.displayBox.setSpacing(0);
         stage.setTitle("Dynamic Programming!");
         stage.setScene(scene);
         stage.show();
-
-        btn.setOnAction(this::onButtonPress);
     }
-
-    private void initGeneratorMap() {
-        this.generators = TreeGenerator.getGenerators();
-
-        ObservableList<String> keys = FXCollections.observableArrayList(this.generators.keySet());
-        keys = FXCollections.observableArrayList(
-                keys.stream()
-                        .sorted(Comparator.naturalOrder()) // For alphabetical order
-                        .toList()
-        );
-        generatorComboBox = new ComboBox<>(keys);
-        generatorComboBox.setPromptText("Select an option");
-        generatorComboBox.setOnAction(event -> {
-            String selectedKey = generatorComboBox.getValue();
-            this.currentGenerator = this.generators.get(selectedKey);
-        });
-    }
-
     private void onButtonPress(ActionEvent event) {
         Platform.runLater(() -> {
             clearTree();
@@ -80,9 +66,47 @@ public class TreeVisualizer extends VisualizerBase{
         });
     }
 
+    private void onClearButtonPress(ActionEvent event) {
+        Platform.runLater(() -> {
+            clearTree();
+            argsField.setText("");
+            stage.setScene(scene);
+
+            nodeGroup.setScaleX(1);
+            nodeGroup.setScaleY(1);
+
+            nodeGroup.setTranslateX(0);
+            nodeGroup.setTranslateY(0);
+        });
+    }
+
+    private void initGeneratorMap() {
+        this.generators = TreeGenerator.getGenerators();
+
+        ObservableList<String> keys = FXCollections.observableArrayList(this.generators.keySet());
+        keys = FXCollections.observableArrayList(
+                keys.stream()
+                        .sorted(Comparator.naturalOrder()) // For alphabetical order
+                        .toList()
+        );
+        generatorComboBox = new ComboBox<>(keys);
+        generatorComboBox.setPromptText("Select an option");
+        generatorComboBox.setOnAction(event -> {
+            String selectedKey = generatorComboBox.getValue();
+            this.currentGenerator = this.generators.get(selectedKey);
+
+            if (argsField.getText().isEmpty()) {
+                argsField.setText(currentGenerator.getExampleArgs());
+            }
+        });
+    }
+
+
+
     private  <T extends Displayable> void loadTree(Node<T> root) {
         int rootX = APP_WIDTH / 2;
-        loadTreeRecursive(root, rootX, NODE_LAYER_OFFSET, rootX, NODE_LAYER_OFFSET);
+        nodeLayerOffset = 2 * TreeHelper.getMaxNodeHeight(root);
+        loadTreeRecursive(root, rootX, nodeLayerOffset, rootX, nodeLayerOffset);
     }
 
     private <T extends Displayable> void loadNode(Node<T> node, int xPosition, int yPosition) {
@@ -98,7 +122,7 @@ public class TreeVisualizer extends VisualizerBase{
 
 
         ArrayList<Node<T>> children = node.getChildren();
-        int childRowYCoordinate = nodeY + NODE_LAYER_OFFSET;
+        int childRowYCoordinate = nodeY + nodeLayerOffset;
 
 
         for (Node<T> child : children) {

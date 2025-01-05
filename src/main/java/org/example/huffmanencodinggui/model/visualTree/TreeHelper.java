@@ -30,4 +30,18 @@ public class TreeHelper {
 
         return Math.max(longestLine.length() * CHARACTER_PIXEL_WIDTH, lines.length * CHARACTER_ROW_HEIGHT);
     }
+
+    public static <T> int getMaxNodeHeight(Node<T> node) {
+        int nodeContentHeight = getHeight(node.getContentString());
+
+        for (Node<T> child:node.getChildren()) {
+            nodeContentHeight = Math.max(nodeContentHeight, getHeight(child.getContentString()));
+        }
+        return nodeContentHeight;
+    }
+
+    private static int getHeight(String text) {
+        String[] lines = text.split("\n");
+        return CHARACTER_ROW_HEIGHT * lines.length;
+    }
 }

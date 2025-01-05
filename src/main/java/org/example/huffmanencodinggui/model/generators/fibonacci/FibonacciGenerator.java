@@ -11,6 +11,11 @@ public abstract class FibonacciGenerator extends TreeGenerator<FibonacciDisplay>
     }
 
     @Override
+    public String getExampleArgs() {
+        return "12";
+    }
+
+    @Override
     public void parseArgs(String args) {
         this.argument = Integer.parseInt(args);
     }
