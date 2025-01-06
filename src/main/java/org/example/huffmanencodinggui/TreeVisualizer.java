@@ -42,8 +42,13 @@ public class TreeVisualizer extends VisualizerBase{
         clearButton.setMinWidth(100);
         clearButton.setOnAction(this::onClearButtonPress);
 
+        Button resetButton = new Button();
+        resetButton.setText("Reset");
+        resetButton.setMinWidth(100);
+        resetButton.setOnAction(this::onResetButtonPress);
+
         this.argsField.setMinWidth( (double) APP_WIDTH / 2);
-        this.displayBox.getChildren().addAll(argsField, generatorComboBox, btn, clearButton);
+        this.displayBox.getChildren().addAll(argsField, generatorComboBox, btn, resetButton, clearButton);
         this.displayBox.setSpacing(0);
         stage.setTitle("Dynamic Programming!");
         stage.setScene(scene);
@@ -70,14 +75,25 @@ public class TreeVisualizer extends VisualizerBase{
         Platform.runLater(() -> {
             clearTree();
             argsField.setText("");
-            stage.setScene(scene);
-
-            nodeGroup.setScaleX(1);
-            nodeGroup.setScaleY(1);
-
-            nodeGroup.setTranslateX(0);
-            nodeGroup.setTranslateY(0);
+            resetScene();
         });
+    }
+    private void onResetButtonPress(ActionEvent event) {
+        Platform.runLater(() -> {
+            clearTree();
+            if (currentGenerator != null) argsField.setText(currentGenerator.getExampleArgs());
+            resetScene();
+        });
+    }
+
+    private void resetScene() {
+        stage.setScene(scene);
+
+        nodeGroup.setScaleX(1);
+        nodeGroup.setScaleY(1);
+
+        nodeGroup.setTranslateX(0);
+        nodeGroup.setTranslateY(0);
     }
 
     private void initGeneratorMap() {
