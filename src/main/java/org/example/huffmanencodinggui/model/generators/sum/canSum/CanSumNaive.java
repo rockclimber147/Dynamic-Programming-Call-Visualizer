@@ -20,7 +20,7 @@ public class CanSumNaive extends CanSum<SumDisplayBasic> {
         } else if (newSum == 0) {
             display.setFound(true);
         } else {
-            List<Boolean> results = numbers.stream().map(number -> canSum(newSum, number).getFound()).toList();
+            List<Boolean> results = numbers.stream().map(number -> canSum(newSum, number).isFound()).toList();
             boolean found = results.stream().anyMatch(Boolean::booleanValue);
             display.setFound(found);
         }

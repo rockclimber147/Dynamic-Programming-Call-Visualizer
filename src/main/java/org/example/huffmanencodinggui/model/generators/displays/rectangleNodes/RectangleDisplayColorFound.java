@@ -18,5 +18,5 @@ public class RectangleDisplayColorFound extends RectangleDisplayBasic {
         this.found = found;
     }
 
-    public boolean getFound() {return found;}
+    public boolean isFound() {return found;}
 }

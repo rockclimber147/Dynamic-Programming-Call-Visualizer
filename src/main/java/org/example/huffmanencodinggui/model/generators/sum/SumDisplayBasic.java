@@ -15,6 +15,6 @@ public class SumDisplayBasic extends RectangleDisplayColorFound {
 
 
     public String toString() {
-        return sum + ", " + value + "\n" + getFound();
+        return sum + ", " + value + "\n" + isFound();
     }
 }

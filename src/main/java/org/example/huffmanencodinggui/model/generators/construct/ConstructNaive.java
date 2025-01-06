@@ -13,7 +13,6 @@ public class ConstructNaive extends Construct{
 
         ConstructDisplay display = new ConstructDisplay();
         display.setFragmentUsed(fragmentUsed);
-        display.setFound(false);
 
         if (!target.startsWith(fragmentUsed)) {
             display.setCurrentTarget(target);

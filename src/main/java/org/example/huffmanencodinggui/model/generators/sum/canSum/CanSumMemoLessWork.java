@@ -8,6 +8,6 @@ public class CanSumMemoLessWork extends CanSumMemo {
 
     @Override
     public boolean checkChildren(int newSum) {
-        return this.numbers.stream().anyMatch(number -> canSumMemo(newSum, number).getFound());
+        return this.numbers.stream().anyMatch(number -> canSumMemo(newSum, number).isFound());
     }
 }

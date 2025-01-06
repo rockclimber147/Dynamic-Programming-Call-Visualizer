@@ -54,7 +54,7 @@ public class BestSumNaive extends BestSum<BestSumDisplay> {
         } else {
             for (int number : numbers) {
                 BestSumDisplay childDisplay = bestSum(newSum, number);
-                if (childDisplay.getFound()
+                if (childDisplay.isFound()
                 && (bestSumFound == null
                         || childDisplay.getNumbersUsed().size() < bestSumFound.getNumbersUsed().size())) {
                     bestSumFound = childDisplay;

@@ -26,7 +26,7 @@ public class HowSumNaive extends HowSum {
             display.setFound(false);
             for(int number : this.numbers) {
                 SumDisplayWithNumbersUsed checkedDisplay = howSum(newSum, number);
-                if (checkedDisplay.getFound() && !display.getFound()) {
+                if (checkedDisplay.isFound() && !display.isFound()) {
                     display.setFound(true);
                     display.add(checkedDisplay.getNumbersUsed());
                     display.add(number);

@@ -10,7 +10,7 @@ public class CanSumMemoMoreWork extends CanSumMemo {
     public boolean checkChildren(int newSum) {
         return this.numbers.stream()
                 .map(number -> canSumMemo(newSum, number)
-                        .getFound()).toList().stream().anyMatch(Boolean::booleanValue);
+                        .isFound()).toList().stream().anyMatch(Boolean::booleanValue);
 
     }
 }

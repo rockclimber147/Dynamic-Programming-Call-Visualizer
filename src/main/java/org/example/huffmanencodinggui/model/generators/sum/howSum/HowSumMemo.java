@@ -25,7 +25,7 @@ public class HowSumMemo extends HowSum {
         if (memo.containsKey(newSum)) {
             SumDisplayWithNumbersUsed memoDisplay = memo.get(newSum);
             display.add(memoDisplay.getNumbersUsed());
-            display.setFound(memoDisplay.getFound());
+            display.setFound(memoDisplay.isFound());
         } else if (newSum < 0) {
             display.setFound(false);
             memo.put(newSum, display);
@@ -36,7 +36,7 @@ public class HowSumMemo extends HowSum {
             display.setFound(false);
             for(int number : this.numbers) {
                 SumDisplayWithNumbersUsed checkedDisplay = howSumMemo(newSum, number);
-                if (checkedDisplay.getFound()) {
+                if (checkedDisplay.isFound()) {
                     display.setFound(true);
                     display.add(checkedDisplay.getNumbersUsed());
                     display.add(number);
